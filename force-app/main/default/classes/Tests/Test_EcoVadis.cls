@@ -29,13 +29,45 @@ public with sharing class Test_EcoVadis {
         System.assertEquals('?integration_id=%22foo%22&f__published_date__lt=%222020-01-01%22&filter_mode=and', mf.queryString);
     }
 
-    static testMethod void accessToken() {
+    static testMethod void accessTokenColdStart() {
         createSettings();
-        Test.setMock(HttpCalloutMock.class, new Test_EcoVadis_HttpMockResponse('noFilters'));
+        Test.setMock(HttpCalloutMock.class, new Test_EcoVadis_HttpMockResponse('accessToken'));
 
         test.startTest();
         String access_token = EcoVadis_BearerFlow.getAccessToken();
         System.assertEquals('YrAnhFOn1TULsX5KA5RHIzYOZCZHySISK-MR93-pXJ88IOpp7CPRDV14TlyxJjqrkGjz7GWYiwj5FqwszxKivdeiJLkUm1Hz8tGCeLiTPBh03Q0UuMkrInQV1cuYi1L_OudK56u_lUroYb-OAvcdaNSfj-Z1kznKkkDdTCH-DTVO6RGkELYDvMu-Asj0KFnAdfII0WpLPI74OqEhim_kYluQSXS7Jkj-f71KgnVzT8xxFnoB-pVfXlNpjWSYccC5vFMk19p32UwH9UGYT0QKHtumvULtG_6XzNCBKtsNm52xSzCW475Z871qPCsv0etcdfDVESc6OONz6nOucHKJYtLSJwRjOwigk-ZiSYgJJ-5QqQfUzHRI7GwqvlwWyt941erbvsfviwEreLOwYKGGDJwj_HlXvtQZEzy1SNCsG7WdHsJNli8DowM35m3pcLO_1kXUeLFrHRbxevTmSNmWrJqXSgKS-bVsw4LUK5NZrBoYuc9l', access_token);
+        test.stopTest();
+    }
+    static testMethod void accessTokenNotExpired() {
+        createSettings();
+        Test_EcoVadis_HttpMockResponse mock = new Test_EcoVadis_HttpMockResponse('accessToken');
+        Test.setMock(HttpCalloutMock.class, mock);
+
+        test.startTest();
+        mock.setToken('notExpired');
+        String access_token = EcoVadis_BearerFlow.getAccessToken();
+
+        mock.setToken('base');
+        String access_token2 = EcoVadis_BearerFlow.getAccessToken();
+
+        System.assertEquals('1111', access_token);
+        System.assertEquals('1111', access_token2);
+        test.stopTest();
+    }
+    static testMethod void accessTokenExpired() {
+        createSettings();
+        Test_EcoVadis_HttpMockResponse mock = new Test_EcoVadis_HttpMockResponse('accessToken');
+        Test.setMock(HttpCalloutMock.class, mock);
+
+        test.startTest();
+        mock.setToken('expired');
+        String access_token = EcoVadis_BearerFlow.getAccessToken();
+
+        mock.setToken('base');
+        String access_token2 = EcoVadis_BearerFlow.getAccessToken();
+
+        System.assertEquals('2222', access_token);
+        System.assertEquals('YrAnhFOn1TULsX5KA5RHIzYOZCZHySISK-MR93-pXJ88IOpp7CPRDV14TlyxJjqrkGjz7GWYiwj5FqwszxKivdeiJLkUm1Hz8tGCeLiTPBh03Q0UuMkrInQV1cuYi1L_OudK56u_lUroYb-OAvcdaNSfj-Z1kznKkkDdTCH-DTVO6RGkELYDvMu-Asj0KFnAdfII0WpLPI74OqEhim_kYluQSXS7Jkj-f71KgnVzT8xxFnoB-pVfXlNpjWSYccC5vFMk19p32UwH9UGYT0QKHtumvULtG_6XzNCBKtsNm52xSzCW475Z871qPCsv0etcdfDVESc6OONz6nOucHKJYtLSJwRjOwigk-ZiSYgJJ-5QqQfUzHRI7GwqvlwWyt941erbvsfviwEreLOwYKGGDJwj_HlXvtQZEzy1SNCsG7WdHsJNli8DowM35m3pcLO_1kXUeLFrHRbxevTmSNmWrJqXSgKS-bVsw4LUK5NZrBoYuc9l', access_token2);
         test.stopTest();
     }
     static testMethod void EVDataNoFilters() {
@@ -337,7 +369,7 @@ public with sharing class Test_EcoVadis {
     static testMethod void setupTestConnection() {
 
         createSettings();
-        Test.setMock(HttpCalloutMock.class, new Test_EcoVadis_HttpMockResponse('noFilters'));
+        Test.setMock(HttpCalloutMock.class, new Test_EcoVadis_HttpMockResponse('accessToken'));
 
 
         test.startTest();

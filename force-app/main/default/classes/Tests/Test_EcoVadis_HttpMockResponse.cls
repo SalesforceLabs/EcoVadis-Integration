@@ -1,6 +1,11 @@
 @IsTest
 public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutMock {
     private String scenario;
+    private String expired;
+
+    public void setToken(String expired) {
+        this.expired = expired;
+    }
 
     public Test_EcoVadis_HttpMockResponse(String scenario) {
         this.scenario = scenario;
@@ -8,11 +13,10 @@ public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutM
 
     public HTTPResponse respond(HttpRequest req) {
 
-        if (req.getEndpoint().contains('EVToken')) {
-            return accessToken();
-        }
-
         switch on this.scenario {
+            when 'accessToken' {
+                return accessToken();
+            }
             when 'error' {
                 return error();
             }
@@ -42,13 +46,37 @@ public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutM
 
     private HttpResponse accessToken() {
         HttpResponse response = new HttpResponse();
-        String jsonResponse = '{"access_token":"YrAnhFOn1TULsX5KA5RHIzYOZCZHySISK-MR93-pXJ88IOpp7CPRDV14TlyxJjqrkGjz7GWYiwj5FqwszxKivdeiJLkUm1Hz8tGCeLiTPBh03Q0UuMkrInQV1cuYi1L_OudK56u_lUroYb-OAvcdaNSfj-Z1kznKkkDdTCH-DTVO6RGkELYDvMu-Asj0KFnAdfII0WpLPI74OqEhim_kYluQSXS7Jkj-f71KgnVzT8xxFnoB-pVfXlNpjWSYccC5vFMk19p32UwH9UGYT0QKHtumvULtG_6XzNCBKtsNm52xSzCW475Z871qPCsv0etcdfDVESc6OONz6nOucHKJYtLSJwRjOwigk-ZiSYgJJ-5QqQfUzHRI7GwqvlwWyt941erbvsfviwEreLOwYKGGDJwj_HlXvtQZEzy1SNCsG7WdHsJNli8DowM35m3pcLO_1kXUeLFrHRbxevTmSNmWrJqXSgKS-bVsw4LUK5NZrBoYuc9l",' + 
-            '"token_type":"bearer",' + 
-            '"expires_in":50399,' + 
-            '"userName":"salesforce@evsandboxapi.com",' + 
-            '"roles":"",' + 
-            '".issued":"Fri, 21 May 2021 19:38:48 GMT",' + 
-            '".expires":"Sat, 22 May 2021 09:38:48 GMT"}';
+        String jsonResponse;
+
+        switch on this.expired {
+            when 'expired' {
+                jsonResponse = '{"access_token":"2222",' + 
+                '"token_type":"bearer",' + 
+                '"expires_in":50399,' + 
+                '"userName":"salesforce@evsandboxapi.com",' + 
+                '"roles":"",' + 
+                '".issued":"Fri, 21 May 2021 19:38:48 GMT",' + 
+                '".expires":"Fri, 01 Jan 2010 09:38:48 GMT"}';    
+            }
+            when 'notExpired' {
+                jsonResponse = '{"access_token":"1111",' + 
+                '"token_type":"bearer",' + 
+                '"expires_in":50399,' + 
+                '"userName":"salesforce@evsandboxapi.com",' + 
+                '"roles":"",' + 
+                '".issued":"Fri, 21 May 2021 19:38:48 GMT",' + 
+                '".expires":"Tue, 01 Jan 2030 09:38:48 GMT"}';    
+            }
+            when else {
+                jsonResponse = '{"access_token":"YrAnhFOn1TULsX5KA5RHIzYOZCZHySISK-MR93-pXJ88IOpp7CPRDV14TlyxJjqrkGjz7GWYiwj5FqwszxKivdeiJLkUm1Hz8tGCeLiTPBh03Q0UuMkrInQV1cuYi1L_OudK56u_lUroYb-OAvcdaNSfj-Z1kznKkkDdTCH-DTVO6RGkELYDvMu-Asj0KFnAdfII0WpLPI74OqEhim_kYluQSXS7Jkj-f71KgnVzT8xxFnoB-pVfXlNpjWSYccC5vFMk19p32UwH9UGYT0QKHtumvULtG_6XzNCBKtsNm52xSzCW475Z871qPCsv0etcdfDVESc6OONz6nOucHKJYtLSJwRjOwigk-ZiSYgJJ-5QqQfUzHRI7GwqvlwWyt941erbvsfviwEreLOwYKGGDJwj_HlXvtQZEzy1SNCsG7WdHsJNli8DowM35m3pcLO_1kXUeLFrHRbxevTmSNmWrJqXSgKS-bVsw4LUK5NZrBoYuc9l",' + 
+                '"token_type":"bearer",' + 
+                '"expires_in":50399,' + 
+                '"userName":"salesforce@evsandboxapi.com",' + 
+                '"roles":"",' + 
+                '".issued":"Fri, 21 May 2021 19:38:48 GMT",' + 
+                '".expires":"Sat, 22 May 2021 09:38:48 GMT"}';                    
+            }
+        }
         response.setBody(jsonResponse);
         response.setStatusCode(200);
         return response;
