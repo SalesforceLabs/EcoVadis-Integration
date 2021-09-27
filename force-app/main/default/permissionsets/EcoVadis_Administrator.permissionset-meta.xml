@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>EcoVadis_SetupHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>EcoVadis_Settings__c</name>
+    </customSettingAccesses>
+    <description>Provides permissions to setup and configuration features of the EcoVadis integration</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>EcoVadis Administrator</label>
+    <tabSettings>
+        <tab>EcoVadis_Setup</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

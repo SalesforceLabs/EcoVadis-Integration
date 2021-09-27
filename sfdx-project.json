@@ -1,0 +1,11 @@
+{
+  "packageDirectories": [
+    {
+      "path": "force-app",
+      "default": true
+    }
+  ],
+  "namespace": "ecovadis",
+  "sfdcLoginUrl": "https://test.salesforce.com",
+  "sourceApiVersion": "51.0"
+}

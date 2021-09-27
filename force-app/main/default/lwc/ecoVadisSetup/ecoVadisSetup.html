@@ -1,0 +1,70 @@
+<template>
+    <template if:true={settings}>
+        <lightning-card title="EcoVadis Account Settings">
+            <lightning-button 
+                    slot="actions"
+                    variant="brand"
+                    label="Save" 
+                    title="Save" 
+                    class="slds-m-right_small"
+                    onclick={handleSave}>
+            </lightning-button>
+            <lightning-button 
+                    slot="actions"
+                    variant="brand-outline" 
+                    label="Test" 
+                    title="Test"
+                    disabled={testDisabled} 
+                    onclick={handleTest}>
+            </lightning-button>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12"  padding="horizontal-small">
+                    <lightning-combobox
+                            name="environment"
+                            label="EcoVadis Environment"
+                            value={environment}
+                            placeholder="Select the EcoVadis environment"
+                            options={environmentOptions}
+                            onchange={handleEnvironmentChange}
+                            required>
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12"  padding="horizontal-small">
+                    <lightning-input 
+                            name="username" 
+                            label="EcoVadis Username" 
+                            type="email" 
+                            value={settings.ecovadis__Username__c}
+                            onchange={handleUsernameChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="11"  padding="horizontal-small">
+                    <lightning-input 
+                            type={passwordInputType}
+                            name="password" 
+                            label="EcoVadis Password" 
+                            value={settings.ecovadis__Password__c}
+                            onchange={handlePasswordChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="1" class="passwordbutton" padding="horizontal-small">
+                    <lightning-button-icon
+                            icon-name={showPasswordIcon}
+                            alternative-text={showPasswordAltText}
+                            onclick={handleShowPasswordChange}>
+                    </lightning-button-icon>
+                </lightning-layout-item>
+            </lightning-layout>
+            <template if:true={showTestStatus}>
+                <hr></hr>
+                <template if:true={testResults}>
+                    <img class="teststatusimg" src={passIcon}>
+                </template>
+                <template if:false={testResults}>
+                    <img class="teststatusimg" src={failIcon}>
+                </template>
+            </template>
+        </lightning-card>
+    </template>
+
+</template>
