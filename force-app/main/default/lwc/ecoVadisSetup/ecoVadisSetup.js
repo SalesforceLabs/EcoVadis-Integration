@@ -94,7 +94,13 @@ export default class EcoVadisSetup extends LightningElement {
     }
 
     handleSave(event) {
-        console.log('handleSave: ', this.settings);
+        console.log('handleSave: ', JSON.parse(JSON.stringify(this.settings)));
+
+        if (!this.settings.ecovadis__Environment_URL__c || !this.settings.ecovadis__Username__c || !this.settings.ecovadis__Password__c) {
+            this.handleErrors({message: 'Missing data.  Complete all fields and try again'});
+            return;
+        }
+
         saveSettings({ settings: this.settings })
             .then(result => {
                 this.handleConfirmation('Settings have been saved');
