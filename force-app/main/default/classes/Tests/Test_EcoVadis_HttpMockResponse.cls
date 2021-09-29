@@ -18,7 +18,7 @@ public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutM
                 return accessToken();
             }
             when 'error' {
-                return error();
+                return error(req);
             }
             when 'noFilters' {
                 return noFilters();
@@ -30,7 +30,7 @@ public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutM
                 return multipleFilters();
             }
             when 'singleRequest' {
-                return singleRequest();
+                return singleRequest(req);
             }
             when 'singleRequestMissingCountry' {
                 return singleRequestMissingCountry();
@@ -82,20 +82,28 @@ public with sharing class Test_EcoVadis_HttpMockResponse implements HttpCalloutM
         return response;
     }
 
-    private HttpResponse error() {
+    private HttpResponse error(HttpRequest req) {
         HttpResponse response = new HttpResponse();
-        String jsonResponse = '{"error":"invalid_grant","error_description":"Wrong username or password."}';
-        response.setStatusCode(400);
-        response.setStatus('Bad Request');
-        response.setBody(jsonResponse);
+        if (req.getEndpoint().contains('EVToken')) {
+            response = accessToken();
+        } else {
+            String jsonResponse = '{"error":"invalid_grant","error_description":"Wrong username or password."}';
+            response.setStatusCode(400);
+            response.setStatus('Bad Request');
+            response.setBody(jsonResponse);
+        }
         return response;
     }
 
-    private HttpResponse singleRequest() {
+    private HttpResponse singleRequest(HttpRequest req) {
         HttpResponse response = new HttpResponse();
-        response.setStatusCode(200);
-        response.setStatus('OK');
-        response.setBody('Assessment request has been successfully created');
+        if (req.getEndpoint().contains('EVToken')) {
+            response = accessToken();
+        } else {
+            response.setStatusCode(200);
+            response.setStatus('OK');
+            response.setBody('Assessment request has been successfully created');
+        }
         return response;
     }
 
