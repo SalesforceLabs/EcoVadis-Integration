@@ -15,7 +15,7 @@ public with sharing class EcoVadis_BearerFlow {
 
         // If we have already gotten an access token and it is still valid...
         if ((accessToken != null) && (expiry != null) && (expiry > DateTime.now().addMinutes(5))) {
-            System.debug('current access token');
+            // System.debug('current access token');
             return accessToken;
         }
 
@@ -57,10 +57,10 @@ public with sharing class EcoVadis_BearerFlow {
                     }
                 }
             } catch (Exception e) {
-                System.debug(LoggingLevel.ERROR, 'Error parsing JSON: ' + e.getMessage() + res.getBody());
+                throw new EcoVadis_Exception('Error parsing JSON: ' + e.getMessage() + res.getBody());
             }
 		} else {
-            System.debug(LoggingLevel.ERROR, 'Error: ' + res.getStatusCode() + ' ' + res.getStatus());
+            throw new EcoVadis_Exception('Error: ' + res.getStatusCode() + ' ' + res.getStatus());
         }
 		return accessToken;
 

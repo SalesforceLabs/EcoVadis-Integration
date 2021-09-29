@@ -7,21 +7,16 @@ global with sharing class EcoVadis_Service {
 	global String httpErrorMessage = '';
     global String httpResponseJson = '';
     
-    global static String VERSION = 'v2.1';
-
-    /**
-     * @description Constructor
-     */
-    public EcoVadis_Service() {
-    }
+    global static final String VERSION = 'v2.1';
 
     /**
      * @description Sends a request for assessment to the EcoVadis service
      * 
+     * @param request - Data to be sent with the request
      * @return Status of the request
      *
      */
-    public String evRequest(EcoVadis_EVRequest request) {
+    global String evRequest(EcoVadis_EVRequest request) {
         String uri = 'EVRequest';
 
         // Make sure all the required fields have been provided
@@ -43,15 +38,16 @@ global with sharing class EcoVadis_Service {
         String body = '[' + JSON.serialize(request, true) + ']';
 
         EcoVadis_HttpClient client = new EcoVadis_HttpClient(this, uri, body);
-        System.debug('Target URL: ' + client.getUrl());
+        System.debug(LoggingLevel.DEBUG, 'Target URL: ' + client.getUrl());
         client.execute();
 
-        if ( !client.isError() ) {
-            return client.getResponseAsString();
-        }
         handleError(client.getStatusCode(), client.getStatusMessage(), client.getResponseError());
         httpResponseJson = client.getResponseAsString();
-        return null;
+        if ( client.isError() ) {
+            return null;
+        } else {
+            return client.getResponseAsString();
+        }
     }
 
 
@@ -62,7 +58,7 @@ global with sharing class EcoVadis_Service {
      *
      * @return List of EcoVadis_EVData records
      */
-    public List<EcoVadis_EVData> eVData() {
+    global List<EcoVadis_EVData> eVData() {
         String uri = 'EVData';
         return eVData(uri);
     }
@@ -70,9 +66,10 @@ global with sharing class EcoVadis_Service {
     /**
      * @description Retrieves company data records based on a single filter
      *
+     * @param filter - Single filter
      * @return List of EcoVadis_EVData records
      */
-    public List<EcoVadis_EVData> eVData(EcoVadis_Filter filter) {
+    global List<EcoVadis_EVData> eVData(EcoVadis_Filter filter) {
         String uri = 'EVData';
         if (filter != null) {
             uri += '?' + filter.queryString;
@@ -83,9 +80,10 @@ global with sharing class EcoVadis_Service {
     /**
      * @description Retrieves company data records based on multiple filters
      *
+     * @param filter - Multiple filter construct
      * @return List of EcoVadis_EVData records
      */
-    public List<EcoVadis_EVData> eVData(EcoVadis_MultipleFilter filter) {
+    global List<EcoVadis_EVData> eVData(EcoVadis_MultipleFilter filter) {
         String uri = 'EVData';
         if (filter != null) {
             uri += filter.queryString;
@@ -96,10 +94,10 @@ global with sharing class EcoVadis_Service {
 
     // Private methods
     private List<EcoVadis_EVData> eVData(String uri) {
-        System.debug('EVData');
+        System.debug(LoggingLevel.DEBUG, 'EVData');
 
         EcoVadis_HttpClient client = new EcoVadis_HttpClient(this, uri);
-        System.debug('Target URL: ' + client.getUrl());
+        System.debug(LoggingLevel.DEBUG, 'Target URL: ' + client.getUrl());
         client.execute();
 
         if ( !client.isError() ) {

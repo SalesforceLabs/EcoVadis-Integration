@@ -6,6 +6,7 @@
                     variant="brand"
                     label="Save" 
                     title="Save" 
+                    disabled={saveDisabled}
                     class="slds-m-right_small"
                     onclick={handleSave}>
             </lightning-button>
@@ -35,7 +36,8 @@
                             label="EcoVadis Username" 
                             type="email" 
                             value={settings.ecovadis__Username__c}
-                            onchange={handleUsernameChange}>
+                            onchange={handleUsernameChange}
+                            required>
                     </lightning-input>
                 </lightning-layout-item>
                 <lightning-layout-item size="11"  padding="horizontal-small">
@@ -44,7 +46,8 @@
                             name="password" 
                             label="EcoVadis Password" 
                             value={settings.ecovadis__Password__c}
-                            onchange={handlePasswordChange}>
+                            onchange={handlePasswordChange}
+                            required>
                     </lightning-input>
                 </lightning-layout-item>
                 <lightning-layout-item size="1" class="passwordbutton" padding="horizontal-small">

@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getSettings from '@salesforce/apex/EcoVadis_SetupHelper.getSettings';
 import saveSettings from '@salesforce/apex/EcoVadis_SetupHelper.saveSettings';
@@ -11,7 +11,7 @@ export default class EcoVadisSetup extends LightningElement {
     passIcon = STATUS_ICONS + '/images/GreenThumb.png';
     failIcon = STATUS_ICONS + '/images/RedThumb.png';
     
-    settings;
+    @track settings;
     environment;
     testDisabled;
     testResults;
@@ -27,6 +27,10 @@ export default class EcoVadisSetup extends LightningElement {
             value: "https://api-sandbox.ecovadis-survey.com/"
         }
     ];
+
+    get saveDisabled() {
+        return (!this.settings.ecovadis__Environment_URL__c || !this.settings.ecovadis__Username__c || !this.settings.ecovadis__Password__c);
+    }
 
     get showPasswordIcon() {
         return (this.showPassword ? 'utility:hide' : 'utility:preview');

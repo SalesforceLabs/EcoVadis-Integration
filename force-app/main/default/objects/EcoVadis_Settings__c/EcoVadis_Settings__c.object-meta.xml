@@ -4,5 +4,5 @@
     <description>Settings for EcoVadis integration</description>
     <enableFeeds>false</enableFeeds>
     <label>EcoVadis Settings</label>
-    <visibility>Public</visibility>
+    <visibility>Protected</visibility>
 </CustomObject>

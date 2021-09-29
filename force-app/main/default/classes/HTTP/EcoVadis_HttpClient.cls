@@ -93,7 +93,7 @@ public with sharing class EcoVadis_HttpClient {
         statusCode = response.getStatusCode();
         statusMessage = response.getStatus();
         stringResponse = response.getBody();
-        System.debug(stringResponse);
+        System.debug(LoggingLevel.DEBUG, stringResponse);
 
         // Attempt to parse response into JSON
         try {

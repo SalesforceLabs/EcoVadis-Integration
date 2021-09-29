@@ -1,3 +1,6 @@
+/**
+ * @description controller class for the ecoVadisSetup lwc
+ */
 public with sharing class EcoVadis_SetupHelper {
 
     private enum AccessLevels {
@@ -8,6 +11,10 @@ public with sharing class EcoVadis_SetupHelper {
 	}
 
 
+	/**
+	 * @description Retrieves settings from Custom Settings
+	 * @return custom setting values
+	 */
 	@AuraEnabled
 	public static EcoVadis_Settings__c getSettings() { 
 		ecovadis__EcoVadis_Settings__c settings = EcoVadis_Settings__c.getOrgDefaults();
@@ -30,6 +37,10 @@ public with sharing class EcoVadis_SetupHelper {
 		return settings;
 	}
 
+	/**
+	 * @description saves updated settings
+	 * @param settings - new setting values
+	 */
     @AuraEnabled
 	public static void saveSettings(EcoVadis_Settings__c settings){
 
@@ -73,6 +84,10 @@ public with sharing class EcoVadis_SetupHelper {
 		}
 	}
 
+	/**
+	 * @description does a simple token request to confirm settings are valid
+	 * @return true if the settings enabled an access token response
+	 */
     @AuraEnabled
 	public static boolean testConnection() {
         return (EcoVadis_BearerFlow.getAccessToken() != null);
@@ -80,7 +95,12 @@ public with sharing class EcoVadis_SetupHelper {
 
 
 
-
+	/**
+	 * @description checks object and field access levels for various modes
+	 * @param objectName - name of object being checked
+	 * @param accessLevel - type of access being checked
+	 * @param fieldsToCheck - list of field names to verify
+	 */
 	private static void checkAccess (String objectName, AccessLevels accessLevel, String[] fieldsToCheck) {
 		// Get the object description
 		SObjectType sObjType = Schema.getGlobalDescribe().get(objectName);
