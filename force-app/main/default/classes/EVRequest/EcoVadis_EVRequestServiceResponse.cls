@@ -1,9 +1,9 @@
-public with sharing class EcoVadis_EVRequestServiceResponse {
+global with sharing class EcoVadis_EVRequestServiceResponse {
 
     @InvocableVariable
-    public String data;
+    global String data;
 
     @InvocableVariable
-    public String jsonResponse;
+    global String jsonResponse;
 
 }
