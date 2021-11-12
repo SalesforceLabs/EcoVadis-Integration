@@ -10,6 +10,7 @@ export default class EcoVadisSetup extends LightningElement {
 
     passIcon = STATUS_ICONS + '/images/GreenThumb.png';
     failIcon = STATUS_ICONS + '/images/RedThumb.png';
+    logoIcon = STATUS_ICONS + '/images/EcoVadisLogo.png';
     
     @track settings;
     environment;

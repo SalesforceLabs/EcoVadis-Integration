@@ -1,11 +1,30 @@
 {
-  "packageDirectories": [
-    {
-      "path": "force-app",
-      "default": true
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "EcoVadis Integration",
+            "versionName": "ver 0.1",
+            "versionNumber": "0.1.0.NEXT"
+        }
+    ],
+    "namespace": "ecovadis",
+    "sfdcLoginUrl": "https://test.salesforce.com",
+    "sourceApiVersion": "51.0",
+    "packageAliases": {
+        "EcoVadis Integration": "0Ho5f000000fxVyCAI",
+        "EcoVadis Integration@0.1.0-1": "04t5f0000001ajSAAQ",
+        "EcoVadis Integration@0.1.0-2": "04t5f0000001bKhAAI",
+        "EcoVadis Integration@0.1.0-3": "04t5f0000001bOuAAI",
+        "EcoVadis Integration@0.1.0-5": "04t5f0000001c0JAAQ",
+        "EcoVadis Integration@0.1.0-6": "04t5f0000001f9fAAA",
+        "EcoVadis Integration@0.1.0-7": "04t5f0000001f9pAAA",
+        "EcoVadis Integration@0.1.0-8": "04t5f0000001f9uAAA",
+        "EcoVadis Integration@0.1.0-9": "04t5f0000001fE7AAI",
+        "EcoVadis Integration@0.2.0-0": "04t5f0000001fECAAY",
+        "EcoVadis Integration@0.1.0-10": "04t5f0000001l1tAAA",
+        "EcoVadis Integration@0.1.0-11": "04t5f0000001l1yAAA",
+        "EcoVadis Integration@0.3.0-0": "04t5f0000001l23AAA",
+        "EcoVadis Integration@0.4.0-0": "04t5f0000002sOKAAY"
     }
-  ],
-  "namespace": "ecovadis",
-  "sfdcLoginUrl": "https://test.salesforce.com",
-  "sourceApiVersion": "51.0"
 }
