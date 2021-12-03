@@ -4,7 +4,7 @@
             "path": "force-app",
             "default": true,
             "package": "EcoVadis Integration",
-            "versionName": "ver 0.1",
+            "versionName": "ver 2.0",
             "versionNumber": "0.1.0.NEXT"
         }
     ],
@@ -25,6 +25,9 @@
         "EcoVadis Integration@0.1.0-10": "04t5f0000001l1tAAA",
         "EcoVadis Integration@0.1.0-11": "04t5f0000001l1yAAA",
         "EcoVadis Integration@0.3.0-0": "04t5f0000001l23AAA",
-        "EcoVadis Integration@0.4.0-0": "04t5f0000002sOKAAY"
+        "EcoVadis Integration@0.4.0-0": "04t5f0000002sOKAAY",
+        "EcoVadis Integration@1.0.0-0": "04t5f0000003HpiAAE",
+        "EcoVadis Integration@1.0.0-1": "04t5f0000003RFpAAM",
+        "EcoVadis Integration@2.0.0-0": "04t5f0000003RFuAAM"
     }
 }

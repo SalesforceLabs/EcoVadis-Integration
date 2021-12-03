@@ -193,7 +193,7 @@
                     <inputParameters>
                         <name>imageName</name>
                         <value>
-                            <stringValue>CSR_EcoVadisLogo</stringValue>
+                            <stringValue>EcoVadisLogo</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -262,7 +262,7 @@
                     <inputParameters>
                         <name>imageName</name>
                         <value>
-                            <stringValue>CSR_EcoVadisLogo</stringValue>
+                            <stringValue>EcoVadisLogo</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -331,7 +331,7 @@
                     <inputParameters>
                         <name>imageName</name>
                         <value>
-                            <stringValue>CSR_EcoVadisLogo</stringValue>
+                            <stringValue>EcoVadisLogo</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -400,7 +400,7 @@
                     <inputParameters>
                         <name>imageName</name>
                         <value>
-                            <stringValue>CSR_EcoVadisLogo</stringValue>
+                            <stringValue>EcoVadisLogo</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -469,7 +469,7 @@
                     <inputParameters>
                         <name>imageName</name>
                         <value>
-                            <stringValue>CSR_EcoVadisLogo</stringValue>
+                            <stringValue>EcoVadisLogo</stringValue>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -524,7 +524,7 @@
             <targetReference>Confirmation</targetReference>
         </connector>
     </start>
-    <status>InvalidDraft</status>
+    <status>Active</status>
     <variables>
         <description>Integration Id corresponding to the company you wish to retrieve data for</description>
         <name>ecoVadisIntegrationId</name>

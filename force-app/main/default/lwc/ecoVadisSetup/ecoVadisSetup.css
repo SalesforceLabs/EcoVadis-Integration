@@ -5,9 +5,7 @@
 }
 
 .passwordbutton {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-bottom: 12px;
+    position: relative;
+    top: 20px;
 
 }
